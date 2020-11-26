@@ -26,10 +26,15 @@ SECTIONS {
     SIM_STOP = .;
     LONG(0x6F);
     LONG(-1);
-    . = 0x100;
+    . = 0x200;
     PROVIDE(__TEXT_START__ = .);
     *(.text.init) 
   } >RAM
+
+  /* custom section */
+  .text.start 1024 : {
+    *(.text.start)
+  } > RAM
 
   .text  : {
     *crt.o(.text .text.*)

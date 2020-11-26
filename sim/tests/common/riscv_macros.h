@@ -102,15 +102,27 @@
 #define INTERRUPT_HANDLER j other_exception /* No interrupts should occur */
 
 #define RVTEST_CODE_BEGIN                                               \
+	/* string that will be printed out */				\
+	.section .data;							\
+	IT_FINALLY_WORKS: .string "ILLEGAL\n";				\
         .section .text.init;                                            \
-        .org 0xC0, 0x00;                                                \
         .balign  64;                                                    \
         .weak stvec_handler;                                            \
         .weak mtvec_handler;                                            \
 trap_vector:                                                            \
+	/* load string address */					\
+	la t1, IT_FINALLY_WORKS;					\
+	/* load print character address */				\
+	li t2, 0xF0000000;						\
+	/* load and print character */					\
+  loop: lb t3, 0(t1);							\
+  	sb t3, 0(t2);							\
+	beqz t3, cont;							\
+	addi t1, t1, 1;							\
+	j loop;								\
         /* test whether the test came from pass/fail */                 \
-        csrr a4, mcause;                                                \
-        li a5, CAUSE_USER_ECALL;                                        \
+  cont:	csrr a4, mcause;                                                \
+  	li a5, CAUSE_USER_ECALL;                                        \
         beq a4, a5, _report;                                            \
         li a5, CAUSE_SUPERVISOR_ECALL;                                  \
         beq a4, a5, _report;                                            \
@@ -133,6 +145,8 @@ _report:                                                                \
         j sc_exit;                                                      \
         .balign  64;                                                    \
         .globl _start;                                                  \
+	/* new section */						\
+	.section .text.start;						\
 _start:                                                                 \
         RISCV_MULTICORE_DISABLE;                                        \
         /*INIT_SPTBR;*/                                                 \
