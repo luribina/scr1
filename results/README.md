@@ -17,14 +17,24 @@
     ```
 
 2. Модифицировать обработку исключений, чтобы при ней выводилась определенная строка. Для этого редактируется файл *[riscv_macros.h](../sim/tests/common/riscv_macros.h)* :
-   1. Объявляется секция *.data* с нужной строкой перед секцией *.text.init*
+    1. Объявляется секция *.data* с нужной строкой перед секцией *.text.init*
 
         ```
         .section .data;	
         IT_FINALLY_WORKS: .string "ILLEGAL\n";
         ```
 
-   2. В начале *trap_vector* выводится строка, для этого каждый символ строки сохраняется по адресу *0xF0000000*
+    2. В начале *trap_vector* проверяется значение mcause, если оно не равно 2, то пропускается вывод строки, так как 2 это код исключения illegal instruction
+
+        ```
+        csrr a4, mcause;
+        /* check if it is illegal instruction */
+        andi t0, a4, 0x03;
+        addi t0, t0, -2;
+        bnez t0, cont;
+        ```
+
+    3. Потом выводится строка, для этого каждый символ строки сохраняется по адресу *0xF0000000*
 
         ```
         trap_vector: 
@@ -39,7 +49,7 @@
 		    addi t1, t1, 1;
 		    j loop;					
             /* test whether the test came from pass/fail */
-        cont: csrr a4, mcause;
+        cont: li a5, CAUSE_USER_ECALL; 
         ```					
 
 3. Установить в файле *[scr1_arch_description.svh](../src/includes/scr1_arch_description.svh)* параметры ядра Reset Vector и Trap Vector в соответствии с вариантом задания.
