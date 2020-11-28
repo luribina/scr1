@@ -110,6 +110,11 @@
         .weak stvec_handler;                                            \
         .weak mtvec_handler;                                            \
 trap_vector:                                                            \
+  	csrr a4, mcause;                                                \
+        /* check if it is illegal instruction */                        \
+	andi t0, a4, 0x03;                                              \
+	addi t0, t0, -2;                                                \
+	bnez t0, cont;                                                  \
 	/* load string address */					\
 	la t1, IT_FINALLY_WORKS;					\
 	/* load print character address */				\
@@ -121,8 +126,7 @@ trap_vector:                                                            \
 	addi t1, t1, 1;							\
 	j loop;								\
         /* test whether the test came from pass/fail */                 \
-  cont:	csrr a4, mcause;                                                \
-  	li a5, CAUSE_USER_ECALL;                                        \
+  cont:	li a5, CAUSE_USER_ECALL;                                        \
         beq a4, a5, _report;                                            \
         li a5, CAUSE_SUPERVISOR_ECALL;                                  \
         beq a4, a5, _report;                                            \
