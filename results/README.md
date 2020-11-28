@@ -27,17 +27,17 @@
     2. В начале *trap_vector* проверяется значение mcause, если оно не равно 2, то пропускается вывод строки, так как 2 это код исключения illegal instruction
 
         ```
-        csrr a4, mcause;
-        /* check if it is illegal instruction */
-        andi t0, a4, 0x03;
-        addi t0, t0, -2;
-        bnez t0, cont;
+        trap_vector:
+            csrr a4, mcause;
+            /* check if it is illegal instruction */
+            andi t0, a4, 0x03;
+            addi t0, t0, -2;
+            bnez t0, cont;
         ```
 
     3. Потом выводится строка, для этого каждый символ строки сохраняется по адресу *0xF0000000*
 
-        ```
-        trap_vector: 
+        ``` 
             /* load string address */
             la t1, IT_FINALLY_WORKS;
             /* load print character address */
