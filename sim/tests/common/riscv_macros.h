@@ -112,7 +112,7 @@
 trap_vector:                                                            \
   	csrr a4, mcause;                                                \
         /* check if it is illegal instruction */                        \
-	andi t0, a4, 0x03;                                              \
+	andi t0, a4, 0x0F;                                              \
 	addi t0, t0, -2;                                                \
 	bnez t0, cont;                                                  \
 	/* load string address */					\
