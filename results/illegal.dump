@@ -17,51 +17,51 @@ Disassembly of section .text.init:
 	...
 
 00000200 <trap_vector>:
- 200:	00000317          	auipc	t1,0x0
- 204:	74030313          	addi	t1,t1,1856 # 940 <IT_FINALLY_WORKS>
- 208:	f00003b7          	lui	t2,0xf0000
+ 200:	34202773          	csrr	a4,mcause
+ 204:	00f77293          	andi	t0,a4,15
+ 208:	12f9                	addi	t0,t0,-2
+ 20a:	02029063          	bnez	t0,22a <cont>
+ 20e:	00000317          	auipc	t1,0x0
+ 212:	73230313          	addi	t1,t1,1842 # 940 <IT_FINALLY_WORKS>
+ 216:	f00003b7          	lui	t2,0xf0000
 
-0000020c <loop>:
- 20c:	00030e03          	lb	t3,0(t1)
- 210:	01c38023          	sb	t3,0(t2) # f0000000 <__global_pointer$+0xefffee38>
- 214:	000e0463          	beqz	t3,21c <cont>
- 218:	0305                	addi	t1,t1,1
- 21a:	bfcd                	j	20c <loop>
+0000021a <loop>:
+ 21a:	00030e03          	lb	t3,0(t1)
+ 21e:	01c38023          	sb	t3,0(t2) # f0000000 <__global_pointer$+0xefffee38>
+ 222:	000e0463          	beqz	t3,22a <cont>
+ 226:	0305                	addi	t1,t1,1
+ 228:	bfcd                	j	21a <loop>
 
-0000021c <cont>:
- 21c:	34202773          	csrr	a4,mcause
- 220:	47a1                	li	a5,8
- 222:	02f70463          	beq	a4,a5,24a <_report>
- 226:	47a5                	li	a5,9
- 228:	02f70163          	beq	a4,a5,24a <_report>
- 22c:	47ad                	li	a5,11
- 22e:	00f70e63          	beq	a4,a5,24a <_report>
- 232:	00000717          	auipc	a4,0x0
- 236:	4ce70713          	addi	a4,a4,1230 # 700 <mtvec_handler>
- 23a:	c311                	beqz	a4,23e <cont+0x22>
- 23c:	8702                	jr	a4
- 23e:	34202773          	csrr	a4,mcause
- 242:	00075363          	bgez	a4,248 <handle_exception>
- 246:	a009                	j	248 <handle_exception>
+0000022a <cont>:
+ 22a:	47a1                	li	a5,8
+ 22c:	02f70463          	beq	a4,a5,254 <_report>
+ 230:	47a5                	li	a5,9
+ 232:	02f70163          	beq	a4,a5,254 <_report>
+ 236:	47ad                	li	a5,11
+ 238:	00f70e63          	beq	a4,a5,254 <_report>
+ 23c:	00000717          	auipc	a4,0x0
+ 240:	4c470713          	addi	a4,a4,1220 # 700 <mtvec_handler>
+ 244:	c311                	beqz	a4,248 <cont+0x1e>
+ 246:	8702                	jr	a4
+ 248:	34202773          	csrr	a4,mcause
+ 24c:	00075363          	bgez	a4,252 <handle_exception>
+ 250:	a009                	j	252 <handle_exception>
 
-00000248 <handle_exception>:
- 248:	4505                	li	a0,1
+00000252 <handle_exception>:
+ 252:	4505                	li	a0,1
 
-0000024a <_report>:
- 24a:	6b60006f          	j	900 <sc_exit>
- 24e:	00000013          	nop
- 252:	00000013          	nop
- 256:	00000013          	nop
- 25a:	00000013          	nop
- 25e:	00000013          	nop
- 262:	00000013          	nop
- 266:	00000013          	nop
- 26a:	00000013          	nop
- 26e:	00000013          	nop
- 272:	00000013          	nop
- 276:	00000013          	nop
- 27a:	00000013          	nop
- 27e:	0001                	nop
+00000254 <_report>:
+ 254:	6ac0006f          	j	900 <sc_exit>
+ 258:	00000013          	nop
+ 25c:	00000013          	nop
+ 260:	00000013          	nop
+ 264:	00000013          	nop
+ 268:	00000013          	nop
+ 26c:	00000013          	nop
+ 270:	00000013          	nop
+ 274:	00000013          	nop
+ 278:	00000013          	nop
+ 27c:	00000013          	nop
 	...
 
 Disassembly of section .text.start:
@@ -88,7 +88,7 @@ Disassembly of section .text.start:
  43a:	30229073          	csrw	medeleg,t0
  43e:	30202373          	csrr	t1,medeleg
  442:	00628463          	beq	t0,t1,44a <_start+0x4a>
- 446:	e03ff06f          	j	248 <handle_exception>
+ 446:	e0dff06f          	j	252 <handle_exception>
  44a:	30005073          	csrwi	mstatus,0
  44e:	6509                	lui	a0,0x2
  450:	80050513          	addi	a0,a0,-2048 # 1800 <__global_pointer$+0x638>
@@ -380,7 +380,7 @@ Disassembly of section .stack:
 Disassembly of section .riscv.attributes:
 
 00000000 <.riscv.attributes>:
-   0:	2c41                	jal	290 <_report+0x46>
+   0:	2c41                	jal	290 <_report+0x3c>
    2:	0000                	unimp
    4:	7200                	flw	fs0,32(a2)
    6:	7369                	lui	t1,0xffffa
