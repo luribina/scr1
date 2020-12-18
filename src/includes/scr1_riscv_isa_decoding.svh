@@ -34,7 +34,7 @@ typedef enum logic [6:2] {
     SCR1_OPCODE_JALR        = 5'b11001,
     SCR1_OPCODE_JAL         = 5'b11011,
     SCR1_OPCODE_SYSTEM      = 5'b11100,
-    SCR1_OPCODE_CNCUI       = 5'b01010
+    SCR1_OPCODE_CNCUI       = 5'b01010 // new opcode 
 } type_scr1_rvi_opcode_e;
 
 
@@ -165,7 +165,7 @@ typedef struct packed {
     type_scr1_csr_op_sel_e              csr_op;
     type_scr1_csr_cmd_sel_e             csr_cmd;
     type_scr1_rd_wb_sel_e               rd_wb_sel;
-    logic                               conc_req;
+    logic                               conc_req;       // additional dignal for new command
     logic                               jump_req;
     logic                               branch_req;
     logic                               mret_req;

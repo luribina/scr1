@@ -416,7 +416,7 @@ always_comb begin
             ialu_main_op1 = mprf2exu_rs1_data_i;
             ialu_main_op2 = mprf2exu_rs2_data_i;
         end else begin
-	    if (exu_queue.conc_req)
+	    if (exu_queue.conc_req) // if cncui use 12 bits 
                  ialu_main_op1 = {{20{1'b0}}, mprf2exu_rs1_data_i[11:0]};
 	    else
            	 ialu_main_op1 = mprf2exu_rs1_data_i;

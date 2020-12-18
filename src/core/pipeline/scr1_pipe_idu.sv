@@ -100,7 +100,7 @@ always_comb begin
     idu2exu_cmd_o.csr_op      = SCR1_CSR_OP_REG;
     idu2exu_cmd_o.csr_cmd     = SCR1_CSR_CMD_NONE;
     idu2exu_cmd_o.rd_wb_sel   = SCR1_RD_WB_NONE;
-    idu2exu_cmd_o.conc_req    = 1'b0;
+    idu2exu_cmd_o.conc_req    = 1'b0;  // default value for additional signal
     idu2exu_cmd_o.jump_req    = 1'b0;
     idu2exu_cmd_o.branch_req  = 1'b0;
     idu2exu_cmd_o.mret_req    = 1'b0;
@@ -140,7 +140,7 @@ always_comb begin
                 idu2exu_cmd_o.rd_addr     = instr[11:7];
                 case (rvi_opcode)
 		   
-		SCR1_OPCODE_CNCUI           : begin
+		SCR1_OPCODE_CNCUI           : begin // new command
                         idu2exu_use_rd_o          = 1'b1;
 			idu2exu_use_rs1_o         = 1'b1;
                         idu2exu_use_imm_o         = 1'b1;
