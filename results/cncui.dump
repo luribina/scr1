@@ -1,0 +1,197 @@
+
+/home/anna/riscv/labs/lab3/scr1/build/verilator_wf_AHB_MAX_imc_IPIC_1_TCM_1_VIRQ_1_TRACE_1/cncui.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text.init:
+
+00000000 <SIM_EXIT-0xf4>:
+	...
+
+000000f4 <SIM_EXIT>:
+  f4:	00000013          	nop
+
+000000f8 <SIM_STOP>:
+  f8:	0000006f          	j	f8 <SIM_STOP>
+  fc:	ffff                	0xffff
+  fe:	ffff                	0xffff
+	...
+
+000001c0 <trap_vector>:
+ 1c0:	34202773          	csrr	a4,mcause
+ 1c4:	47a1                	li	a5,8
+ 1c6:	02f70263          	beq	a4,a5,1ea <_report>
+ 1ca:	47a5                	li	a5,9
+ 1cc:	00f70f63          	beq	a4,a5,1ea <_report>
+ 1d0:	47ad                	li	a5,11
+ 1d2:	00f70c63          	beq	a4,a5,1ea <_report>
+ 1d6:	00000713          	li	a4,0
+ 1da:	c311                	beqz	a4,1de <trap_vector+0x1e>
+ 1dc:	8702                	jr	a4
+ 1de:	34202773          	csrr	a4,mcause
+ 1e2:	00075363          	bgez	a4,1e8 <handle_exception>
+ 1e6:	a009                	j	1e8 <handle_exception>
+
+000001e8 <handle_exception>:
+ 1e8:	4505                	li	a0,1
+
+000001ea <_report>:
+ 1ea:	1560006f          	j	340 <sc_exit>
+ 1ee:	00000013          	nop
+ 1f2:	00000013          	nop
+ 1f6:	00000013          	nop
+ 1fa:	00000013          	nop
+ 1fe:	0001                	nop
+
+00000200 <_start>:
+ 200:	f1402573          	csrr	a0,mhartid
+ 204:	e101                	bnez	a0,204 <_start+0x4>
+ 206:	4e01                	li	t3,0
+ 208:	00000297          	auipc	t0,0x0
+ 20c:	fb828293          	addi	t0,t0,-72 # 1c0 <trap_vector>
+ 210:	30529073          	csrw	mtvec,t0
+ 214:	4505                	li	a0,1
+ 216:	057e                	slli	a0,a0,0x1f
+ 218:	00054863          	bltz	a0,228 <_start+0x28>
+ 21c:	0ff0000f          	fence
+ 220:	85f2                	mv	a1,t3
+ 222:	4501                	li	a0,0
+ 224:	00000073          	ecall
+ 228:	00000293          	li	t0,0
+ 22c:	00028d63          	beqz	t0,246 <_start+0x46>
+ 230:	10529073          	csrw	stvec,t0
+ 234:	62ad                	lui	t0,0xb
+ 236:	10928293          	addi	t0,t0,265 # b109 <__global_pointer$+0xa501>
+ 23a:	30229073          	csrw	medeleg,t0
+ 23e:	30202373          	csrr	t1,medeleg
+ 242:	fa6293e3          	bne	t0,t1,1e8 <handle_exception>
+ 246:	30005073          	csrwi	mstatus,0
+ 24a:	00000297          	auipc	t0,0x0
+ 24e:	05628293          	addi	t0,t0,86 # 2a0 <_run_test>
+ 252:	34129073          	csrw	mepc,t0
+ 256:	f1402573          	csrr	a0,mhartid
+ 25a:	30200073          	mret
+	...
+
+Disassembly of section .text:
+
+000002a0 <_run_test>:
+ 2a0:	035f02b7          	lui	t0,0x35f0
+ 2a4:	82328293          	addi	t0,t0,-2013 # 35ef823 <__global_pointer$+0x35eec1b>
+ 2a8:	c80002ab          	0xc80002ab
+ 2ac:	c8001eb7          	lui	t4,0xc8001
+ 2b0:	823e8e93          	addi	t4,t4,-2013 # c8000823 <__global_pointer$+0xc7fffc1b>
+ 2b4:	4e09                	li	t3,2
+ 2b6:	07d29163          	bne	t0,t4,318 <fail>
+
+000002ba <test_3>:
+ 2ba:	4281                	li	t0,0
+ 2bc:	000002ab          	0x2ab
+ 2c0:	4e81                	li	t4,0
+ 2c2:	4e0d                	li	t3,3
+ 2c4:	05d29a63          	bne	t0,t4,318 <fail>
+
+000002c8 <test_4>:
+ 2c8:	4295                	li	t0,5
+ 2ca:	123452ab          	0x123452ab
+ 2ce:	12345eb7          	lui	t4,0x12345
+ 2d2:	0e95                	addi	t4,t4,5
+ 2d4:	4e11                	li	t3,4
+ 2d6:	05d29163          	bne	t0,t4,318 <fail>
+
+000002da <test_5>:
+ 2da:	3c000293          	li	t0,960
+ 2de:	000002ab          	0x2ab
+ 2e2:	3c000e93          	li	t4,960
+ 2e6:	4e15                	li	t3,5
+ 2e8:	03d29863          	bne	t0,t4,318 <fail>
+
+000002ec <test_6>:
+ 2ec:	020002b7          	lui	t0,0x2000
+ 2f0:	3c028293          	addi	t0,t0,960 # 20003c0 <__global_pointer$+0x1fff7b8>
+ 2f4:	000002ab          	0x2ab
+ 2f8:	3c000e93          	li	t4,960
+ 2fc:	4e19                	li	t3,6
+ 2fe:	01d29d63          	bne	t0,t4,318 <fail>
+
+00000302 <test_7>:
+ 302:	fff00293          	li	t0,-1
+ 306:	fffff2ab          	0xfffff2ab
+ 30a:	fff00e93          	li	t4,-1
+ 30e:	4e1d                	li	t3,7
+ 310:	01d29463          	bne	t0,t4,318 <fail>
+ 314:	01c01863          	bne	zero,t3,324 <pass>
+
+00000318 <fail>:
+ 318:	0ff0000f          	fence
+ 31c:	85f2                	mv	a1,t3
+ 31e:	4505                	li	a0,1
+ 320:	00000073          	ecall
+
+00000324 <pass>:
+ 324:	0ff0000f          	fence
+ 328:	85f2                	mv	a1,t3
+ 32a:	4501                	li	a0,0
+ 32c:	00000073          	ecall
+
+00000330 <ecall>:
+ 330:	00000073          	ecall
+	...
+
+00000340 <sc_exit>:
+ 340:	00000297          	auipc	t0,0x0
+ 344:	db428293          	addi	t0,t0,-588 # f4 <SIM_EXIT>
+ 348:	8282                	jr	t0
+ 34a:	00000013          	nop
+ 34e:	00000013          	nop
+ 352:	00000013          	nop
+ 356:	00000013          	nop
+ 35a:	00000013          	nop
+ 35e:	0001                	nop
+	...
+
+Disassembly of section .data:
+
+00000380 <begin_regstate>:
+	...
+
+Disassembly of section .tohost:
+
+000003c0 <tohost>:
+	...
+
+00000400 <fromhost>:
+	...
+
+Disassembly of section .sdata:
+
+00000408 <__global_pointer$-0x800>:
+	...
+
+Disassembly of section .stack:
+
+0000fc00 <.stack>:
+	...
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	2c41                	jal	290 <_start+0x90>
+   2:	0000                	unimp
+   4:	7200                	flw	fs0,32(a2)
+   6:	7369                	lui	t1,0xffffa
+   8:	01007663          	bgeu	zero,a6,14 <CL_SIZE-0xc>
+   c:	0022                	c.slli	zero,0x8
+   e:	0000                	unimp
+  10:	7205                	lui	tp,0xfffe1
+  12:	3376                	fld	ft6,376(sp)
+  14:	6932                	flw	fs2,12(sp)
+  16:	7032                	flw	ft0,44(sp)
+  18:	5f30                	lw	a2,120(a4)
+  1a:	326d                	jal	fffff9c4 <__global_pointer$+0xffffedbc>
+  1c:	3070                	fld	fa2,224(s0)
+  1e:	665f 7032 5f30      	0x5f307032665f
+  24:	30703263          	0x30703263
+  28:	0800                	addi	s0,sp,16
+  2a:	0a01                	addi	s4,s4,0
+  2c:	0b              	Address 0x000000000000002c is out of bounds.
+

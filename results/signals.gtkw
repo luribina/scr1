@@ -1,0 +1,37 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Fri Dec 18 10:42:03 2020
+[*]
+[dumpfile] "/home/anna/riscv/labs/lab3/scr1/results/simx.vcd"
+[dumpfile_mtime] "Fri Dec 18 01:48:45 2020"
+[dumpfile_size] 368079
+[savefile] "/home/anna/riscv/labs/lab3/scr1/results/signals.gtkw"
+[timestart] 460
+[size] 1301 782
+[pos] 635 82
+*0.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] scr1_top_tb_ahb.
+[treeopen] scr1_top_tb_ahb.i_top.
+[treeopen] scr1_top_tb_ahb.i_top.i_core_top.
+[treeopen] scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.
+[treeopen] scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_exu.
+[treeopen] scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_idu.
+[sst_width] 282
+[signals_width] 230
+[sst_expanded] 1
+[sst_vpaned_height] 333
+@22
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_idu.rvi_opcode[6:2]
+@28
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_idu.idu2exu_cmd_o.conc_req
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_exu.exu_queue.conc_req
+@22
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_idu.idu2exu_cmd_o.imm[31:0]
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_exu.exu_queue.imm[31:0]
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_idu.idu2exu_cmd_o.rs1_addr[4:0]
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_exu.exu_queue.rs1_addr[4:0]
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_exu.mprf2exu_rs1_data_i[31:0]
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_exu.ialu_main_op1[31:0]
+scr1_top_tb_ahb.i_top.i_core_top.i_pipe_top.i_pipe_exu.ialu_main_res[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
