@@ -343,6 +343,7 @@ always_ff @(posedge clk) begin
         exu_queue.csr_op         <= idu2exu_cmd_i.csr_op;
         exu_queue.csr_cmd        <= idu2exu_cmd_i.csr_cmd;
         exu_queue.rd_wb_sel      <= idu2exu_cmd_i.rd_wb_sel;
+        exu_queue.conc_req       <= idu2exu_cmd_i.conc_req;
         exu_queue.jump_req       <= idu2exu_cmd_i.jump_req;
         exu_queue.branch_req     <= idu2exu_cmd_i.branch_req;
         exu_queue.mret_req       <= idu2exu_cmd_i.mret_req;
@@ -415,7 +416,10 @@ always_comb begin
             ialu_main_op1 = mprf2exu_rs1_data_i;
             ialu_main_op2 = mprf2exu_rs2_data_i;
         end else begin
-            ialu_main_op1 = mprf2exu_rs1_data_i;
+	    if (exu_queue.conc_req)
+                 ialu_main_op1 = {{20{1'b0}}, mprf2exu_rs1_data_i[11:0]};
+	    else
+           	 ialu_main_op1 = mprf2exu_rs1_data_i;
             ialu_main_op2 = exu_queue.imm;
         end
 `ifdef SCR1_RVM_EXT

@@ -80,7 +80,7 @@ endif
 override ARCH=$(ARCH_tmp)
 
 # Use this parameter to enable tracelog
-TRACE ?= 0
+TRACE ?= 1
 
 ifeq ($(TRACE), 1)
     export SIM_TRACE_DEF = SCR1_TRACE_LOG_EN
@@ -154,23 +154,26 @@ ifeq (,$(findstring e,$(ARCH_lowercase)))
 # These tests cannot be compiled for RVE
 
     # Comment this target if you don't want to run the riscv_isa
-    TARGETS += riscv_isa
+#    TARGETS += riscv_isa
 
     # Comment this target if you don't want to run the riscv_compliance
-    TARGETS += riscv_compliance
+#    TARGETS += riscv_compliance
 endif
 
 # Comment this target if you don't want to run the isr_sample
-TARGETS += isr_sample
+#TARGETS += isr_sample
 
 # Comment this target if you don't want to run the coremark
-TARGETS += coremark
+#TARGETS += coremark
 
 # Comment this target if you don't want to run the dhrystone
-TARGETS += dhrystone21
+#TARGETS += dhrystone21
 
 # Comment this target if you don't want to run the hello test
-TARGETS += hello
+#TARGETS += hello
+
+# Custom instruction test
+TARGETS += custom_inst
 
 # Targets
 .PHONY: tests run_modelsim run_vcs run_ncsim run_verilator run_verilator_wf
@@ -200,6 +203,9 @@ coremark: | $(bld_dir)
 
 riscv_isa: | $(bld_dir)
 	$(MAKE) -C $(tst_dir)/riscv_isa ARCH=$(ARCH)
+
+custom_inst: | $(bld_dir)
+	$(MAKE) -C $(tst_dir)/custom_inst ARCH=$(ARCH)
 
 riscv_compliance: | $(bld_dir)
 	$(MAKE) -C $(tst_dir)/riscv_compliance ARCH=$(ARCH)
@@ -288,6 +294,7 @@ run_verilator_wf: $(test_info)
 clean:
 	$(MAKE) -C $(tst_dir)/benchmarks/dhrystone21 clean
 	$(MAKE) -C $(tst_dir)/riscv_isa clean
+	$(MAKE) -C $(tst_dir)/custom_inst clean
 	$(MAKE) -C $(tst_dir)/riscv_compliance clean
 	$(RM) -R $(root_dir)/build/*
 	$(RM) $(test_info)
