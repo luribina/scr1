@@ -38,14 +38,14 @@
     ```
         SCR1_OPCODE_CNCUI           : begin
                 idu2exu_use_rd_o          = 1'b1; // инструкция использует rd
-			    idu2exu_use_rs1_o         = 1'b1; // инструкция использует rs1
+                idu2exu_use_rs1_o         = 1'b1; // инструкция использует rs1
                 idu2exu_use_imm_o         = 1'b1; // инструкция использует imm
-			    idu2exu_cmd_o.conc_req    = 1'b1; // выставить 1 в новый доп. сигнал
-			    idu2exu_cmd_o.rs1_addr    = instr[11:7]; // указать какие биты использовать для адреса rs1
+                idu2exu_cmd_o.conc_req    = 1'b1; // выставить 1 в новый доп. сигнал
+                idu2exu_cmd_o.rs1_addr    = instr[11:7]; // указать какие биты использовать для адреса rs1
                 idu2exu_cmd_o.imm         = {instr[31:12], 12'b0}; // использовать только старшие 20 битов imm
-			    idu2exu_cmd_o.ialu_op     = SCR1_IALU_OP_REG_IMM; // указать алу, что будет операция с полем imm
+                idu2exu_cmd_o.ialu_op     = SCR1_IALU_OP_REG_IMM; // указать алу, что будет операция с полем imm
                 idu2exu_cmd_o.ialu_cmd    = SCR1_IALU_CMD_ADD; // в алу будет сложение
-		        idu2exu_cmd_o.rd_wb_sel   = SCR1_RD_WB_IALU; // результат алу записать в rd
+                idu2exu_cmd_o.rd_wb_sel   = SCR1_RD_WB_IALU; // результат алу записать в rd
     ```
 
 5. Осталось изменить файл *[scr1_pipe_exu.sv](../src/core/pipeline/scr1_pipe_exu.sv)*, который отвечает за стадию execution
