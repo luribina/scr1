@@ -80,44 +80,44 @@ Disassembly of section .text:
  2a8:	c80002ab          	0xc80002ab
  2ac:	c8001eb7          	lui	t4,0xc8001
  2b0:	823e8e93          	addi	t4,t4,-2013 # c8000823 <__global_pointer$+0xc7fffc1b>
- 2b4:	4e09                	li	t3,2
+ 2b4:	4e05                	li	t3,1
  2b6:	07d29163          	bne	t0,t4,318 <fail>
 
-000002ba <test_3>:
+000002ba <test_2>:
  2ba:	4281                	li	t0,0
  2bc:	000002ab          	0x2ab
  2c0:	4e81                	li	t4,0
- 2c2:	4e0d                	li	t3,3
+ 2c2:	4e09                	li	t3,2
  2c4:	05d29a63          	bne	t0,t4,318 <fail>
 
-000002c8 <test_4>:
+000002c8 <test_3>:
  2c8:	4295                	li	t0,5
  2ca:	123452ab          	0x123452ab
  2ce:	12345eb7          	lui	t4,0x12345
  2d2:	0e95                	addi	t4,t4,5
- 2d4:	4e11                	li	t3,4
+ 2d4:	4e0d                	li	t3,3
  2d6:	05d29163          	bne	t0,t4,318 <fail>
 
-000002da <test_5>:
+000002da <test_4>:
  2da:	3c000293          	li	t0,960
  2de:	000002ab          	0x2ab
  2e2:	3c000e93          	li	t4,960
- 2e6:	4e15                	li	t3,5
+ 2e6:	4e11                	li	t3,4
  2e8:	03d29863          	bne	t0,t4,318 <fail>
 
-000002ec <test_6>:
+000002ec <test_5>:
  2ec:	020002b7          	lui	t0,0x2000
  2f0:	3c028293          	addi	t0,t0,960 # 20003c0 <__global_pointer$+0x1fff7b8>
  2f4:	000002ab          	0x2ab
  2f8:	3c000e93          	li	t4,960
- 2fc:	4e19                	li	t3,6
+ 2fc:	4e15                	li	t3,5
  2fe:	01d29d63          	bne	t0,t4,318 <fail>
 
-00000302 <test_7>:
+00000302 <test_6>:
  302:	fff00293          	li	t0,-1
  306:	fffff2ab          	0xfffff2ab
  30a:	fff00e93          	li	t4,-1
- 30e:	4e1d                	li	t3,7
+ 30e:	4e19                	li	t3,6
  310:	01d29463          	bne	t0,t4,318 <fail>
  314:	01c01863          	bne	zero,t3,324 <pass>
 
